@@ -14,7 +14,7 @@
 		"lib-curl": "*"
 	},
 	"autoload": {
-		"files": ["lib/ArmorPayments.php"],
+		"files": ["lib/ArmorPayments/ArmorPayments.php"],
 		"psr-4": {
 			"ArmorPayments\\": "lib/ArmorPayments",
 			"": ["lib/", "lib/ArmorPayments/"]
