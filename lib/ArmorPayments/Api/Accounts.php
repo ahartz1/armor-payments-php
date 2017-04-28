@@ -5,7 +5,7 @@ class Accounts extends \ArmorPayments\Api\Resource {
 	public function create($data) {
 		return $this->request('POST', $this->uri(), $data);
 	}
-	
+
 	public function update($account_id, $data) {
 		return $this->request('POST', $this->uri($account_id), $data);
 	}

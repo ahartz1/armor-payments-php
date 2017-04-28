@@ -6,14 +6,14 @@
 //////////////////////////////////////////////////////////////////////////
 // WARNING - WARNING - WARNING - WARNING - WARNING - WARNING - WARNING //
 ////////////////////////////////////////////////////////////////////////
-// 
+//
 // This file contains example code which will create accounts, users, and
 // orders, and move those orders through the order process. Although they
 // are not destructive, some of these actions are non-reversible.
 //
 // You should start with the Example.php file to ensure your API key and
-// secret are correct before proceding to this example file.
-// 
+// secret are correct before proceeding to this example file.
+//
 //////////////////////////////////////////////////////////////////////////
 // WARNING - WARNING - WARNING - WARNING - WARNING - WARNING - WARNING //
 ////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ $client = new \ArmorPayments\Api($api_key, $api_secret, true);
 // in the email addresses. This will allow you to run this example file
 // multiple times without email address collisions. The unique identifier
 // will also be used in the account company names and the order summary
-// in order to make it easier to tell similiar-looking test values apart.
+// in order to make it easier to tell similar-looking test values apart.
 $unique = uniqid();
 
 // Create a buyer user and account
@@ -185,7 +185,7 @@ $response = $client->accounts()->orders($order->account_id)->update(
 		));
 echo print_r($response, true)."\n";
 
-// Get a list of shipement carriers
+// Get a list of shipment carriers
 $response = $client->shipmentcarriers()->all();
 echo print_r($response, true)."\n";
 
