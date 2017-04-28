@@ -164,6 +164,7 @@ $client->accounts()->users($account_id)->authentications($user_id)->create($your
 
 // Order-related
 $client->accounts()->orders($account_id)->create($your_data);
+$client->accounts()->orders($account_id)->update($order_id, $your_data);
 
 $client->accounts()->orders($account_id)->documents($order_id)->create($your_data);
 

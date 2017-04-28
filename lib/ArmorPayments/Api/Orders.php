@@ -6,6 +6,10 @@ class Orders extends \ArmorPayments\Api\Resource {
 		return $this->request('POST', $this->uri(), $data);
 	}
 
+	public function update($order_id, $data) {
+		return $this->request('POST', $this->uri($order_id), $data);
+	}
+
 	public function disputes($order_id) {
 		return new \ArmorPayments\Api\Disputes(
 			$this->host,
