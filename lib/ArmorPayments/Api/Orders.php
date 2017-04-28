@@ -6,22 +6,15 @@ class Orders extends \ArmorPayments\Api\Resource {
 		return $this->request('POST', $this->uri(), $data);
 	}
 
-	public function documents($order_id) {
-		return new \ArmorPayments\Api\Documents(
-			$this->host,
-			$this->authenticator,
-			$this->uri($order_id));
-	}
-
-	public function notes($order_id) {
-		return new \ArmorPayments\Api\Notes(
-			$this->host,
-			$this->authenticator,
-			$this->uri($order_id));
-	}
-
 	public function disputes($order_id) {
 		return new \ArmorPayments\Api\Disputes(
+			$this->host,
+			$this->authenticator,
+			$this->uri($order_id));
+	}
+
+	public function documents($order_id) {
+		return new \ArmorPayments\Api\Documents(
 			$this->host,
 			$this->authenticator,
 			$this->uri($order_id));
@@ -34,8 +27,22 @@ class Orders extends \ArmorPayments\Api\Resource {
 			$this->uri($order_id));
 	}
 
+	public function notes($order_id) {
+		return new \ArmorPayments\Api\Notes(
+			$this->host,
+			$this->authenticator,
+			$this->uri($order_id));
+	}
+
 	public function orderevents($order_id) {
 		return new \ArmorPayments\Api\OrderEvents(
+			$this->host,
+			$this->authenticator,
+			$this->uri($order_id));
+	}
+
+	public function orderledgers($order_id) {
+		return new \ArmorPayments\Api\OrderLedgers(
 			$this->host,
 			$this->authenticator,
 			$this->uri($order_id));
