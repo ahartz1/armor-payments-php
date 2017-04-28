@@ -95,7 +95,7 @@ $client->accounts()->bankaccounts($account_id)->all();
 $client->accounts()->bankaccounts($account_id)->get($bank_account_id);
 
 // From orders, many things chain: documents, notes, disputes, shipments,
-// payment instructions, order events
+// payment instructions, order events, and order ledgers
 
 $client->accounts()->orders($account_id)->documents($order_id)->all();
 $client->accounts()->orders($account_id)->documents($order_id)->get($document_id);
@@ -113,6 +113,9 @@ $client->accounts()->orders($account_id)->paymentinstructions($order_id)->all();
 
 $client->accounts()->orders($account_id)->orderevents($order_id)->all();
 $client->accounts()->orders($account_id)->orderevents($order_id)->get($event_id);
+
+$client->accounts()->orders($account_id)->orderledgers($order_id)->all();
+$client->accounts()->orders($account_id)->orderledgers($order_id)->get($ledger_entry_id);
 
 // From disputes, further things chain: documents, notes, offers
 
@@ -147,35 +150,47 @@ $client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_i
 Some of the resource endpoints support Create/Update `POST` operations, and this client aims to support those as well:
 
 ```php
+// Account-related
 $client->accounts()->create($your_data);
 $client->accounts()->update($account_id, $your_data);
 
-$client->accounts()->bankaccounts($account_id)->create($your_data);
+$client->accounts()->users($account_id)->create($your_data);
+$client->accounts()->users($account_id)->update($user_id, $your_data);
 
+
+// Authenticate a URI for display in a lightbox
+$client->accounts()->users($account_id)->authentications($user_id)->create($your_data);
+
+
+// Order-related
 $client->accounts()->orders($account_id)->create($your_data);
+
+$client->accounts()->orders($account_id)->documents($order_id)->create($your_data);
+
+$client->accounts()->orders($account_id)->notes($order_id)->create($your_data);
 
 $client->accounts()->orders($account_id)->shipments($order_id)->create($your_data);
 
-$client->accounts()->orders($account_id)->documents($order_id)->create($your_data);
+
+// Dispute-related
+$client->accounts()->orders($account_id)->disputes($order_id)->create($your_data);
+
 $client->accounts()->orders($account_id)->disputes($order_id)->documents($dispute_id)
 	->create($your_data);
-$client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_id)
-	->documents($offer_id)->create($your_data);
 
-$client->accounts()->orders($account_id)->notes($order_id)->create($your_data);
 $client->accounts()->orders($account_id)->disputes($order_id)->notes($dispute_id)
 	->create($your_data);
+
 $client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_id)
-	->notes($offer_id)->create($your_data);
-
-$client->accounts()->orders($account_id)->update($order_id, $your_data);
-
+	->create($your_data);
 $client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_id)
 	->update($offer_id, $your_data);
 
-$client->accounts()->users($account_id)->create($your_data);
+$client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_id)
+	->documents($offer_id)->create($your_data);
 
-$client->accounts()->users($account_id)->authentications($user_id)->create($your_data);
+$client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_id)
+	->notes($offer_id)->create($your_data);
 ```
 
 ## Contributing
