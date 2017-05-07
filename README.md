@@ -70,8 +70,6 @@ $ php Example.php
 The Armor Payments API is REST-ish and nested, so the client relies on chaining. We return an object (or array of objects) decoded from the JSON response if possible.
 
 ```php
-<?php
-
 require_once 'path_to_library_install/lib/ArmorPayments/ArmorPayments.php'
 
 $client = new \ArmorPayments\Api('your-key', 'your-secret', $should_use_sandbox);
@@ -152,8 +150,6 @@ $client->accounts()->orders($account_id)->disputes($order_id)->offers($dispute_i
 Some of the resource endpoints support Create/Update `POST` operations, and this client aims to support those as well:
 
 ```php
-<?php
-
 // Account-related
 $client->accounts()->create($your_data);
 $client->accounts()->update($account_id, $your_data);
