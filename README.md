@@ -13,7 +13,7 @@ If you don't have Composer [install](http://getcomposer.org/doc/00-intro.md#inst
 $ curl -s https://getcomposer.org/installer | php
 ```
 Add this to your `composer.json`: 
-```
+```json
 {
 	"require": {
 		"armorpayments/armorpayments-php": "*"
