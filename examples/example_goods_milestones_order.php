@@ -43,15 +43,16 @@ $unique = uniqid();
 
 // Create a buyer user and account
 $buyerAccount = $client->accounts()->create(array(
-	'company'    => "Example buyer company {$unique}",
-	'address'    => '123 Pine Rd.',
-	'city'       => 'Anytown',
-	'state'      => 'MO',
-	'country'    => 'us',
-	'zip'        => '12345',
-	'user_name'  => "Example Buyer {$unique}",
-	'user_email' => "buyer_{$unique}@example.com",
-	'user_phone' => '+1 1235551234',
+	'company'         => "Example buyer company {$unique}",
+	'address'         => '123 Pine Rd.',
+	'city'            => 'Anytown',
+	'state'           => 'MO',
+	'country'         => 'us',
+	'zip'             => '12345',
+	'user_name'       => "Example Buyer {$unique}",
+	'user_email'      => "buyer_{$unique}@example.com",
+	'user_phone'      => '+1 8885551234',
+	'email_confirmed' => true,
 	));
 echo print_r($buyerAccount, true)."\n";
 // Retrieve the newly created user
@@ -61,15 +62,16 @@ echo print_r($buyerUser, true)."\n";
 
 // Create a seller user and account
 $sellerAccount = $client->accounts()->create(array(
-	'company'    => "Example seller company {$unique}",
-	'address'    => '123 Pine Rd.',
-	'city'       => 'Anytown',
-	'state'      => 'MO',
-	'country'    => 'us',
-	'zip'        => '12345',
-	'user_name'  => "Example Seller {$unique}",
-	'user_email' => "seller_{$unique}@example.com",
-	'user_phone' => '+1 1235551234',
+	'company'         => "Example seller company {$unique}",
+	'address'         => '123 Pine Rd.',
+	'city'            => 'Anytown',
+	'state'           => 'MO',
+	'country'         => 'us',
+	'zip'             => '12345',
+	'user_name'       => "Example Seller {$unique}",
+	'user_email'      => "seller_{$unique}@example.com",
+	'user_phone'      => '+1 8885551234',
+	'email_confirmed' => true,
 	));
 echo print_r($sellerAccount, true)."\n";
 // Retrieve the newly created user
@@ -77,31 +79,14 @@ $sellerUser = $client->accounts()->users($sellerAccount->account_id)->all();
 $sellerUser = $sellerUser[0];
 echo print_r($sellerUser, true)."\n";
 
-// Ask the seller to provide bank account details for the account they'd
-// like to receive payment for the order.
+// Ask the seller to provide bank account details for the account they'd like
+// to receive payment for the order. Present the url returned in an iFrame.
 $response = $client->accounts()->users($buyerAccount->account_id)->authentications($buyerUser->user_id)->create(
 	array(
 		'uri'    => "/accounts/{$sellerAccount->account_id}/bankaccounts",
 		'action' => 'create',
 		));
 echo print_r($response, true)."\n";
-
-// Usually, we'd expect the seller to provide bank details using the
-// iFrame URL generated in the previous step. In this case, we're going to
-// create a new bank account record via the API instead, so that our example
-// order doesn't have an error when funds are released because of a missing
-// bank account (this would not be a fatal error, but represents a delay in
-// completing the order until Armor Payments is instructed where funds are to
-// be transferred).
-$bankaccounts = $client->accounts()->bankaccounts($sellerAccount->account_id)->create(
-	array(
-		'type'     => 1, // A business checking account
-		'location' => 'us', // This is a domestic, US-based account
-		'bank'     => 'Example Bank',
-		'routing'  => '123456789',
-		'account'  => '1234567890123456',
-		));
-echo print_r($bankaccounts, true)."\n";
 
 // Create an order between the buyer and seller
 // We will create a goods order with milestone payments for this example
